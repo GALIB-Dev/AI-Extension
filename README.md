@@ -150,9 +150,3 @@ Pull Request এর আগে:
 ---
 আরও বিস্তারিত আর্কিটেকচার / কোড রিফ্যাক্টর প্ল্যান চাইলে বলুন – আমি পরের ধাপে "Architecture Gap Analysis" তৈরি করবো।
 
-## ✍️ লেখক / Author
-**GALIB-Dev**  
-ইমেইল: mohammadalgalib71@gmail.com  
-GitHub: https://github.com/GALIB-Dev  
-
-এই প্রকল্পে অবদান, প্রস্তাব বা প্রশ্ন থাকলে Issue অথবা ইমেইলে জানাতে পারেন।
