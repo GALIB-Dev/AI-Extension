@@ -1,0 +1,23 @@
+{
+  "name": "eonmentor-ai",
+  "private": true,
+  "version": "0.1.0",
+  "description": "EonMentor AI monorepo (Chrome extension + backend + shared)",
+  "workspaces": ["packages/*"],
+  "scripts": {
+    "build": "npm run build -w @eonmentor/extension && npm run build -w @eonmentor/backend",
+    "dev:ext": "npm run dev -w @eonmentor/extension",
+    "dev:backend": "npm run dev -w @eonmentor/backend",
+    "lint": "eslint . --ext .ts,.tsx",
+    "typecheck": "tsc -p tsconfig.base.json --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-react": "^7.33.0",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.0"
+  }
+}

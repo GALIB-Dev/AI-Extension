@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "EonMentor AI",
+  "version": "0.1.0",
+  "description": "Highlight-to-explain financial literacy assistant",
+  "icons": {
+    "16": "icons/icon-16.svg",
+    "32": "icons/icon-32.svg", 
+    "48": "icons/icon-48.svg",
+    "128": "icons/icon-128.svg"
+  },
+  "permissions": ["storage","activeTab","scripting"],
+  "host_permissions": ["<all_urls>"],
+  "action": {
+    "default_title": "EonMentor AI",
+    "default_popup": "index.html",
+    "default_icon": {
+      "16": "icons/icon-16.svg",
+      "32": "icons/icon-32.svg",
+      "48": "icons/icon-48.svg",
+      "128": "icons/icon-128.svg"
+    }
+  },
+  "background": {
+    "service_worker": "src/background/service-worker.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/content/content-script.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "options_page": "options.html"
+}

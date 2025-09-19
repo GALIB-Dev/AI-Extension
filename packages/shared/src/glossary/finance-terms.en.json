@@ -1,0 +1,7 @@
+[
+  { "term": "Inflation", "simple": "General rise in prices; money buys less.", "detail": "Average price levels increase, reducing purchasing power." },
+  { "term": "GDP", "simple": "Total value of what a country produces.", "detail": "Gross Domestic Product measures overall economic output." },
+  { "term": "Interest Rate", "simple": "Cost to borrow or reward for saving.", "detail": "Percentage charged on loans or earned on deposits." },
+  { "term": "Fiscal Policy", "simple": "Government taxing and spending.", "detail": "Used to steer economic activity and demand." },
+  { "term": "Monetary Policy", "simple": "Central bank money & credit control.", "detail": "Adjusts rates and liquidity to influence economy." }
+]
