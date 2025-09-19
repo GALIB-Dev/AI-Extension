@@ -265,6 +265,30 @@ class EonMentorContentScript {
         border: 1px solid rgba(255, 255, 255, 0.3);
         letter-spacing: 0.5px;
       }
+
+      .eonmentor-button .eonmentor-icon {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        margin-right: 8px;
+        vertical-align: -2px;
+        background: currentColor;
+        -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black"><path d="M12 2a7 7 0 0 0-7 7c0 2.5 1.5 4.6 3.6 5.6-.2.8-.7 1.5-1.4 2.2-.3.3-.4.8-.2 1.1.3.4.8.5 1.2.3 1.3-.6 2.3-1.3 3-2 .7.2 1.4.3 2.2.3a7 7 0 0 0 0-14Zm0 12.5c-.7 0-1.3-.1-1.9-.3-.4-.1-.8 0-1 .3-.3.3-.7.7-1.3 1 0-.5.2-1 .3-1.4.1-.4-.1-.9-.5-1.1A5.01 5.01 0 0 1 7 9a5 5 0 1 1 5 5.5Z"/></svg>') center / contain no-repeat;
+        mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black"><path d="M12 2a7 7 0 0 0-7 7c0 2.5 1.5 4.6 3.6 5.6-.2.8-.7 1.5-1.4 2.2-.3.3-.4.8-.2 1.1.3.4.8.5 1.2.3 1.3-.6 2.3-1.3 3-2 .7.2 1.4.3 2.2.3a7 7 0 0 0 0-14Zm0 12.5c-.7 0-1.3-.1-1.9-.3-.4-.1-.8 0-1 .3-.3.3-.7.7-1.3 1 0-.5.2-1 .3-1.4.1-.4-.1-.9-.5-1.1A5.01 5.01 0 0 1 7 9a5 5 0 1 1 5 5.5Z"/></svg>') center / contain no-repeat;
+      }
+
+      .eonmentor-button .eonmentor-icon.spinning {
+        animation: eonmentor-spin 1s linear infinite;
+      }
+
+      @keyframes eonmentor-spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+
+      .eonmentor-button .eonmentor-label { 
+        display: inline-block; 
+      }
       
       .eonmentor-button:hover {
         transform: translateY(-2px);
@@ -419,7 +443,7 @@ class EonMentorContentScript {
   private createButton(): HTMLButtonElement {
     const button = document.createElement('button');
     button.className = 'eonmentor-button';
-    button.innerHTML = '🧠 Explain';
+  button.innerHTML = '<span class="eonmentor-icon" aria-hidden="true"></span><span class="eonmentor-label">Explain</span>';
     // Use already-bound handleButtonClick (bound in constructor)
     button.addEventListener('click', this.handleButtonClick);
     
@@ -466,7 +490,7 @@ class EonMentorContentScript {
     }
     
     // Show loading state
-    button.innerHTML = '⏳ Analyzing...';
+  button.innerHTML = '<span class="eonmentor-icon spinning" aria-hidden="true"></span><span class="eonmentor-label">Analyzing...</span>';
     button.classList.add('processing');
 
     console.log('[EonMentor] Starting analysis for text:', this.ui.currentSelection);
@@ -548,7 +572,7 @@ class EonMentorContentScript {
     } finally {
       // Reset button and processing state (ensure button still exists)
       if (this.ui.button) {
-        this.ui.button.innerHTML = '🧠 Explain';
+  this.ui.button.innerHTML = '<span class="eonmentor-icon" aria-hidden="true"></span><span class="eonmentor-label">Explain</span>';
         this.ui.button.classList.remove('processing');
       }
       this.ui.isProcessing = false;
@@ -619,9 +643,9 @@ class EonMentorContentScript {
     let content = '';
     
     if (data.error) {
-      content = `<div class="error">❌ ${data.error}</div>`;
+  content = `<div class="error">Error: ${data.error}</div>`;
     } else {
-      content = '<h4>🧠 Advanced Financial Analysis</h4>';
+  content = '<h4>Advanced Financial Analysis</h4>';
       
       // Show the main explanation
       if (data.explanation) {
@@ -634,7 +658,7 @@ class EonMentorContentScript {
         
         // Show entities (financial data)
         if (analysis.entities && analysis.entities.length > 0) {
-          content += '<div class="terms"><strong>💰 Financial Data Found:</strong>';
+          content += '<div class="terms"><strong>Financial Data Found:</strong>';
           analysis.entities.forEach(entity => {
             const valueDisplay = entity.value ? ` (${entity.value})` : '';
             content += `
@@ -649,12 +673,12 @@ class EonMentorContentScript {
         
         // Show key topics
         if (analysis.topics && analysis.topics.length > 0) {
-          content += `<div style="margin: 12px 0;"><strong>🎯 Key Topics:</strong> ${analysis.topics.join(', ')}</div>`;
+          content += `<div style="margin: 12px 0;"><strong>Key Topics:</strong> ${analysis.topics.join(', ')}</div>`;
         }
         
         // Show key insights
         if (analysis.keyInsights && analysis.keyInsights.length > 0) {
-          content += '<div style="margin: 12px 0;"><strong>💡 Key Insights:</strong><ul>';
+          content += '<div style="margin: 12px 0;"><strong>Key Insights:</strong><ul>';
           analysis.keyInsights.forEach(insight => {
             content += `<li>${insight}</li>`;
           });
@@ -663,10 +687,10 @@ class EonMentorContentScript {
         
         // Show processing info
         if (data.cached) {
-          content += '<div style="margin-top: 12px; font-size: 12px; color: #666;">⚡ Cached result</div>';
+          content += '<div style="margin-top: 12px; font-size: 12px; color: #666;">Cached result</div>';
         }
         if (data.processingTime) {
-          content += `<div style="font-size: 12px; color: #666;">⏱️ Processed in ${Math.round(data.processingTime)}ms</div>`;
+          content += `<div style="font-size: 12px; color: #666;">Processed in ${Math.round(data.processingTime)}ms</div>`;
         }
       }
       
@@ -688,7 +712,7 @@ class EonMentorContentScript {
         if (data.summary) {
           content += `
             <div class="summary">
-              <strong>📝 Summary:</strong><br>
+              <strong>Summary:</strong><br>
               ${data.summary}
             </div>
           `;
