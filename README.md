@@ -1,154 +1,182 @@
-# EonMentor AI – আর্থিক সাক্ষরতা ব্রাউজার এক্সটেনশন
+# My AWESOME AI Extension!
 
-> বাংলা ডিটেইলড ডকুমেন্টেশন – আপনার নির্বাচিত (highlight) করা ফিন্যান্স সম্পর্কিত টেক্সটকে সহজ ভাষায় ব্যাখ্যা, শব্দার্থ (glossary), সামারি, ও মাল্টি-প্রোভাইডার AI ফfallback সহ একটি Chrome MV3 এক্সটেনশন।
+## Hey there! Welcome to my super cool project!
 
-## ✨ কী করে এই এক্সটেনশন?
-নির্বাচিত (highlight) করা যেকোনো ফিন্যান্স / ইকোনমিক্স টেক্সটকে:
-- সহজ ভাষায় ব্যাখ্যা (Explain)
-- গুরুত্বপূর্ণ টার্ম খুঁজে বের করে (Financial Terms Extraction)
-- ছোট সামারি তৈরি করে (Extractive Summary)
-- লোকাল / Chrome Built‑in AI / OpenAI / Claude / Gemini fallback চেইন ব্যবহার করে
-- সংযোগ ব্যর্থ হলে লোকাল অ্যানালাইসিস fallback
-- Persistent Port + sendMessage fallback দিয়ে নির্ভরযোগ্য Messaging
+So basically, I made this AMAZING browser extension that's like having a really smart friend who knows everything about money stuff!
 
-## 🏗 আর্কিটেকচার ও মডিউল
-মোনো-রিপো কাঠামো:
+### What does this thing do?
+
+Okay, imagine you're reading something online and there's all this confusing money talk that makes your brain hurt. Well, my extension is like a magic translator! 
+
+Here's what happens:
+1. You highlight (select) any text about money, stocks, banking, whatever
+2. A cute little button appears that says "Explain"
+3. Click it and BOOM! It explains everything in simple words that actually make sense!
+4. Plus it finds the important money words and gives you a short summary too!
+
+It's like having ChatGPT, Claude, and other AI friends all working together to help you understand grown-up money talk!
+
+## How I built this monster
+
+I organized everything super neatly (my mom would be proud!):
+
 ```
 packages/
-  extension/      # Chrome MV3 (content script, service worker, popup, options)
-  shared/         # Reusable logic (AI orchestration, glossary, summarizer, utils)
-  backend/        # (Future) Optional API façade / proxy (placeholder)
+  extension/     <- The actual browser extension (the cool stuff!)
+  shared/        <- Code that everyone shares (like toys in kindergarten)
+  backend/       <- Future server stuff (maybe someday...)
 ```
-মূল লেয়ারসমূহ:
-- Content Script: Highlight শনাক্ত, বাটন UI, Tooltip রেন্ডার, Port + fallback messaging
-- Service Worker: AI provider orchestration, টার্ম ডিটেকশন, সামারি, রেসপন্স শেপিং
-- Shared: `ai-service.ts`, glossary JSON, summarizer utilities, rewrite/translate stubs
-- Popup / Options: (বর্তমানে মিনিমাল) কনফিগ ও API কী সেটআপের জন্য
 
-## 🔌 Messaging ডিজাইন
-| Layer | Primary | Fallback | বৈশিষ্ট্য |
-|-------|---------|----------|-----------|
-| Content -> SW | Persistent `chrome.runtime.connect` Port | `chrome.runtime.sendMessage` | Correlation ID `_cid`, টাইমআউট সুরক্ষা |
-| Retry Logic | Context invalidated হলে ১ম retry + ping | Local inline fallback | UX continuity |
+### The main parts:
+- **Content Script**: This watches what you select and shows the magic button
+- **Service Worker**: The brain that talks to all the AI services
+- **Shared Code**: All the helper functions that do the heavy lifting
+- **Popup & Options**: Where you can change settings (boring but necessary)
 
-## 🤖 AI Provider Fallback চেইন
-Priority (availability অনুযায়ী):
-1. Chrome Built‑in AI (যদি থাকে)
-2. OpenAI (API Key সহ)
-3. Claude (API Key সহ)
-4. Gemini (API Key সহ)
-5. Local Heuristic বিশ্লেষণ
+## My AI Squad
 
-লোকাল অ্যানালাইসিস কী করে:
-- সাধারণ ফিন্যান্স কীওয়ার্ড শনাক্ত
-- ক্যাটেগরি ভিত্তিক confidence স্কোর করে
-- সহজ ব্যাখ্যা তৈরি করে
+I made it work with LOTS of different AI services because I'm smart like that:
 
-## 🧠 লোকাল সামারি (Extractive)
-`service-worker.ts` ও `standalone-service-worker.ts` এ বিদ্যমান:
-- টেক্সটকে বাক্যে ভাগ
-- ফ্রিকোয়েন্সি + ফিন্যান্স টার্ম presence স্কোর
-- উচ্চ স্কোরযুক্ত ২টি বাক্য নির্বাচন
+1. **Chrome's Built-in AI** (if your browser has it - so cool!)
+2. **OpenAI** (the ChatGPT people)
+3. **Claude** (another smart AI)
+4. **Gemini** (Google's AI)
+5. **My own local analyzer** (in case everything else fails - I got backup plans!)
 
-## 📦 Installation / ডেভেলপমেন্ট
-```bash
-npm install
-# Shared build (type declarations ইত্যাদি)
-npm run build -w @eonmentor/shared
-# Extension dev (Vite watch)
-npm run dev:ext
+If one doesn't work, it automatically tries the next one. It's like having multiple friends to ask for homework help!
+
+## What makes it special?
+
+- It explains money stuff in words that don't make your head explode
+- Finds all the important finance words and explains them too
+- Makes short summaries so you don't have to read EVERYTHING
+- Works even when the internet is being weird
+- I made sure it doesn't crash when things go wrong (learned that the hard way!)
+
+## How to get it running
+
+**Super easy setup** (I promise it's not scary!):
+
+1. First, download all the stuff my code needs:
+   ```
+   npm install
+   ```
+   (This is like downloading all the LEGO pieces before building something cool)
+
+2. Build the shared code first (trust me on this):
+   ```
+   npm run build -w @eonmentor/shared
+   ```
+
+3. Start the development mode (this is where the magic happens):
+   ```
+   npm run dev:ext
+   ```
+
+4. Now add it to Chrome:
+   - Open Chrome and type `chrome://extensions` in the address bar
+   - Turn ON "Developer mode" (there's a toggle in the top right)
+   - Click "Load unpacked" and choose the `packages/extension/dist` folder
+   - BAM! Your extension is now installed!
+
+**To make the final version:**
 ```
-Chrome এ লোড:
-1. chrome://extensions
-2. Developer Mode ON
-3. Load unpacked > `packages/extension/dist`
-
-Production build:
-```bash
 npm run build
 ```
 
-## 🔑 API Key সেটআপ
-Options / Settings Panel থেকে বা DevTools storage:
-- `openai_api_key`
-- `claude_api_key`
-- `gemini_api_key`
-- `enable_cloud_ai` (boolean)
+## Setting up your AI friends
 
-Cloud নিষ্ক্রিয় (`enable_cloud_ai = false`) হলে সরাসরি লোকাল অ্যানালাইসিসে যায়।
+You need API keys to talk to the smart AIs. It's like having passwords to join their exclusive club:
 
-## 🛡 রেজিলিয়েন্স বৈশিষ্ট্য
-- Extension context invalidated → Ping + retry
-- Port disconnect হলে exponential backoff reconnect
-- In‑flight pending map reject + fallback path
-- Local inline বিশ্লেষণ (content script) জরুরি fallback
+Go to the extension's options page and add:
+- `openai_api_key` - for ChatGPT 
+- `claude_api_key` - for Claude
+- `gemini_api_key` - for Google's AI
+- Set `enable_cloud_ai` to `true` if you want to use them
 
-## 🗂 গুরুত্বপূর্ণ ফাইল
-| ফাইল | কাজ |
-|------|-----|
-| `packages/extension/src/content/content-script.ts` | Selection UI, Port Messaging, Tooltip রেন্ডার |
-| `packages/extension/src/background/standalone-service-worker.ts` | ইনলাইন AI + বিশ্লেষণ (ডুপ্লিকেট লজিক) |
-| `packages/extension/src/background/service-worker.ts` | Shared `ai-service` ব্যবহারকারী Worker |
-| `packages/shared/src/ai-service.ts` | Provider fallback orchestration |
-| `packages/shared/src/utils/summarizer.ts` | (ভবিষ্যৎ উন্নতি) Extractive summarizer পৃথক করা যাবে |
-| `packages/shared/src/glossary/finance-terms.en.json` | বেসিক টার্ম ডেটা |
+Don't have API keys? No worries! It'll still work with my backup local analyzer (I'm always prepared!)
 
-⚠ ডুপ্লিকেশন সতর্কতা: দুইটি Service Worker ভ্যারিয়েন্ট আছে। ভবিষ্যৎ রিফ্যাক্টর প্ল্যান – একটিতে কনসলিডেট + shared ডোমেইন ফাংশনে টার্ম/সামারি লজিক স্থানান্তর।
+## Cool features that make me proud
 
-## 🚀 পরিকল্পিত রিফ্যাক্টর (Roadmap)
-| ধাপ | লক্ষ্য |
-|-----|------|
-| 1 | আর্কিটেকচার গ্যাপ অ্যানালাইসিস সম্পন্ন |
-| 2 | Consolidated Service Worker + MessagingClient abstraction |
-| 3 | Shared summarizer + glossary enrichment (multi-language) |
-| 4 | Popup UI উন্নয়ন: Provider status, ব্যাচ সামারি, rewrite tool |
-| 5 | টেস্ট (unit: summarizer, glossary matcher, provider selector) |
-| 6 | CI (lint + typecheck + build) GitHub Actions |
-| 7 | i18n (বাংলা UI option) |
+- **Never gives up**: If one AI is having a bad day, it tries another one
+- **Works offline**: My local analyzer works even without internet
+- **Super reliable**: I added lots of error handling so it doesn't break
+- **Smart messaging**: Uses fancy communication tricks between different parts
+- **Safe**: Doesn't crash your browser (learned from experience)
 
-## 🧪 ভবিষ্যৎ টেস্ট আইডিয়া
-- Provider priority selection (মক কী config)
-- Local analysis edge cases (খালি টেক্সট, অনেক লম্বা টেক্সট)
-- Messaging timeout scenario simulated
-- Glossary term overlap / synonym resolution
+## The important files (for curious people)
 
-## 🔍 সমস্যা / সীমাবদ্ধতা
-- ডুপ্লিকেট term detection লজিক (দুই worker)
-- Summarizer heuristic খুব সরল
-- Error model string-based (একটি enum বা কাঠামো দরকার)
-- Security: Remote API কলে rate limiting / batching নাই
+| File | What it does |
+|------|-------------|
+| `content-script.ts` | Watches what you select and shows the button |
+| `service-worker.ts` | The main brain that coordinates everything |
+| `ai-service.ts` | Talks to all the different AIs |
+| `summarizer.ts` | Makes short summaries of long text |
+| `finance-terms.en.json` | Database of money words and what they mean |
 
-## ♻ সম্ভাব্য উন্নয়ন
-- Embeddings ভিত্তিক semantic ফিন্যান্স term ম্যাচিং
-- Multi-sentence adaptive summary (length target অনুযায়ী)
-- Provider latency metric সংগ্রহ করে dynamic reordering
-- Caching layer (hash of text → explanation)
-- Offline glossary enrichment (BN localization)
+## My future plans (so exciting!)
 
-## 🏁 দ্রুত ব্যবহার (User Flow)
-1. পেজে কিছু ফিন্যান্স টেক্সট সিলেক্ট করুন
-2. ভাসমান “🧠 Explain” বাটন আসবে
-3. ক্লিক → Tooltip এ ব্যাখ্যা, টার্ম, সামারি
-4. ব্যর্থ হলে লোকাল fallback রিপোর্ট
+Here's what I want to add next:
+- [ ] Make it work in more languages (maybe Spanish?)
+- [ ] Better UI that looks super professional 
+- [ ] More AI services (there are SO many!)
+- [ ] Save your favorite explanations 
+- [ ] Make it work on more websites
+- [ ] Add tests (boring but important)
+- [ ] Make it faster and smarter
+- [ ] Add a cool dark mode theme
 
-## 🧾 লাইসেন্স
-(আপনি যদি MIT চান, যোগ করুন) উদাহরণ:
+## Things I'm still fixing
+
+- Some code is repeated in two places (I know, I know... I'll fix it!)
+- The text summary could be smarter
+- Need better error messages
+- Should add some rate limiting so I don't spam the AI services
+- The local analyzer is pretty basic (but it works!)
+
+## How to use it (the fun part!)
+
+1. Go to any website with money talk (news, articles, whatever)
+2. Highlight any text that confuses you
+3. Look for the floating "Explain" button
+4. Click it and watch the magic happen!
+5. Read the simple explanation in the tooltip
+6. Feel smarter!
+
+## Want to help make it better?
+
+If you want to contribute (that'd be awesome!):
+- Make sure your code doesn't have errors: `eslint .`
+- Make sure your code doesn't have errors: `eslint .`
+- Check types: `tsc -b`  
+- Make sure it builds: `npm run build`
+- Then send me a pull request!
+
+I love getting help from other coders - it makes the project so much better! 
+
+## License stuff (the boring legal part)
+
 ```
 MIT License
 Copyright (c) 2025 GALIB-Dev
 ```
 
-অতিরিক্ত নির্দেশিকা ও অ্যাট্রিবিউশন পরামর্শের জন্য `NOTICE` ফাইল দেখুন (আইনি বাধ্যবাধক নয়, তবে প্রকল্পের সততা বজায় রাখতে সাহায্য করবে)।
+Basically, you can use my code however you want, just give me credit!
 
-## 🙋 অবদান (Contributing)
-Pull Request এর আগে:
-- Lint pass (`eslint .`)
-- Typecheck (`tsc -b`)
-- Build green (`npm run build`)
+## A note about languages
 
-## 🇧🇩 বাংলা নোট
-এই ডকুমেন্ট ভবিষ্যতে বাংলা UI যোগ করার বেস রেফারেন্স হবে। Glossary কে বহুভাষিক করতে JSON কীগুলো রেখে আলাদা locale ফাইল যোগ করা যাবে।
+Right now it's mostly in English, but I designed it so adding other languages will be super easy. The money terms database can totally be translated! Maybe I'll add Bengali next since I speak it too!
+
+## Thanks for checking out my project!
+
+I worked really hard on this and I'm super proud of it. If you use it and it helps you understand money stuff better, that makes me SO happy!
+
+This was my first big coding project and I learned SO much making it. Like, seriously, I probably googled "how to make browser extension" like a million times!
+
+Hit me up if you have questions or ideas - I love talking about code and I'm always looking to learn new stuff!
 
 ---
-আরও বিস্তারিত আর্কিটেকচার / কোড রিফ্যাক্টর প্ল্যান চাইলে বলুন – আমি পরের ধাপে "Architecture Gap Analysis" তৈরি করবো।
 
+*P.S. - Yes, I know some parts of the code could be cleaner. I'm still learning and improving! That's what makes coding fun - there's always something new to figure out!*
+
+*P.P.S. - My parents think I'm some kind of genius now that I made this. They don't really understand what it does, but they're proud anyway!*
