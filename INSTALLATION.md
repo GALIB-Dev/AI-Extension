@@ -1,69 +1,51 @@
-# 🚀 EonMentor AI Extension - Installation Guide
+# Installation Guide
 
-## ✅ **Quick Installation Steps**
+## Prerequisites
 
-### 1. **Build the Extension** (if needed)
-```powershell
-cd "C:\Users\USER\Downloads\NEW project\AI Extension"
-npm run build
-```
+- Node.js 16+ and npm
+- Google Chrome browser
+- Git (for cloning the repository)
 
-### 2. **Open Chrome Extensions Page**
-- Open Google Chrome
-- Navigate to: `chrome://extensions/`
-- Or click: Menu (⋮) → More tools → Extensions
+## Setup
 
-### 3. **Enable Developer Mode**
-- Toggle the "Developer mode" switch in the top-right corner
-- You should see new buttons appear: "Load unpacked", "Pack extension", etc.
+1. **Clone and build the project**
+   ```bash
+   git clone https://github.com/GALIB-Dev/AI-Extension.git
+   cd AI-Extension
+   npm install
+   npm run build
+   ```
 
-### 4. **Load the Extension**
-- Click **"Load unpacked"** button
-- Navigate to and select this folder:
-  ```
-  C:\Users\USER\Downloads\NEW project\AI Extension\packages\extension\dist
-  ```
-- Click **"Select Folder"**
+2. **Load extension in Chrome**
+   - Open `chrome://extensions/`
+   - Enable "Developer mode"
+   - Click "Load unpacked"
+   - Select `packages/extension/dist` folder
 
-### 5. **Pin to Toolbar** (Optional but Recommended)
-- Click the puzzle piece icon (🧩) in Chrome's toolbar
-- Find "EonMentor AI" in the list
-- Click the pin icon (📌) to keep it visible
+3. **Configure API keys (optional)**
+   - Click the extension icon
+   - Go to Options
+   - Add your OpenAI, Claude, or Gemini API keys
 
-## 🎯 **Now You're Ready!**
+## Usage
 
-### **Test the Extension:**
-1. **Visit any website** with financial content
-2. **Highlight text** like: "The Federal Reserve raised interest rates"
-3. **See the floating "Explain" button** appear
-4. **Click it** for AI-powered explanations!
+1. Visit any webpage with financial content
+2. Highlight text containing financial terms
+3. Click the "Explain" button that appears
+4. View the AI-generated explanation
 
-### **Access Settings:**
-- Click the EonMentor AI icon in your toolbar
-- Click the "Settings" button for API configuration
+## Troubleshooting
 
-## 🔧 **Troubleshooting**
+**Extension not loading:**
+- Ensure you selected the `dist` folder, not the parent directory
+- Try rebuilding with `npm run build`
 
-### **"Manifest file is missing" Error:**
-- Make sure you selected the `dist` folder, not the parent folder
-- Path should end with: `...AI Extension\packages\extension\dist`
+**Explain button not appearing:**
+- Refresh the webpage
+- Ensure the extension is enabled in Chrome
+- Check that you're not on a restricted page (chrome:// URLs)
 
-### **Extension Not Loading:**
-- Try rebuilding: `npm run build -w @eonmentor/extension`
-- Refresh the extensions page
-- Try "Remove" and "Load unpacked" again
-
-### **No Highlighting Feature:**
-- Make sure the extension is enabled (toggle switch is on)
-- Try refreshing the webpage
-- Check if you're on a supported website (not chrome:// pages)
-
-## 🎉 **Success Indicators**
-
-You'll know it's working when you see:
-- ✅ EonMentor AI appears in your extensions list
-- ✅ The extension icon is visible in your toolbar
-- ✅ Highlighting text on websites shows an "Explain" button
-- ✅ Clicking the icon shows the professional popup interface
-
-**Ready for the Google Chrome Built-in AI Challenge 2025! 🏆**
+**API errors:**
+- Verify your API keys are correct
+- Check your internet connection
+- The extension will fall back to local analysis if APIs are unavailable

@@ -1,53 +1,34 @@
-# My AWESOME AI Extension!
+# AI Financial Literacy Extension
 
-## Hey there! Welcome to my super cool project!
+A Chrome extension that provides AI-powered explanations for financial terminology and concepts using multiple AI providers with intelligent fallback.
 
-So basically, I made this AMAZING browser extension that's like having a really smart friend who knows everything about money stuff!
+## Overview
 
-### What does this thing do?
+This extension helps users understand complex financial text by providing instant explanations when text is highlighted. It integrates with multiple AI services to ensure reliable responses and includes local analysis as a fallback option.
 
-Okay, imagine you're reading something online and there's all this confusing money talk that makes your brain hurt. Well, my extension is like a magic translator! 
+### Key Features
 
-Here's what happens:
-1. You highlight (select) any text about money, stocks, banking, whatever
-2. A cute little button appears that says "Explain"
-3. Click it and BOOM! It explains everything in simple words that actually make sense!
-4. Plus it finds the important money words and gives you a short summary too!
+- **Multi-AI Integration**: Supports Chrome Built-in AI, OpenAI, Claude, Gemini, and local analysis
+- **Intelligent Fallback**: Automatically tries different AI providers if one is unavailable
+- **Financial Term Detection**: Identifies and explains key financial terminology
+- **Text Summarization**: Provides concise summaries of financial content
+- **Real-time Analysis**: Instant explanations via floating button interface
 
-It's like having ChatGPT, Claude, and other AI friends all working together to help you understand grown-up money talk!
-
-## How I built this monster
-
-I organized everything super neatly (my mom would be proud!):
+## Architecture
 
 ```
 packages/
-  extension/     <- The actual browser extension (the cool stuff!)
-  shared/        <- Code that everyone shares (like toys in kindergarten)
-  backend/       <- Future server stuff (maybe someday...)
+├── extension/     # Chrome extension implementation
+├── shared/        # Common utilities and AI services  
+└── backend/       # Future API server (placeholder)
 ```
 
-### The main parts:
-- **Content Script**: This watches what you select and shows the magic button
-- **Service Worker**: The brain that talks to all the AI services
-- **Shared Code**: All the helper functions that do the heavy lifting
-- **Popup & Options**: Where you can change settings (boring but necessary)
+### Components
 
-## My AI Squad
-
-I made it work with LOTS of different AI services because I'm smart like that:
-
-1. **Chrome's Built-in AI** (if your browser has it - so cool!)
-2. **OpenAI** (the ChatGPT people)
-3. **Claude** (another smart AI)
-4. **Gemini** (Google's AI)
-5. **My own local analyzer** (in case everything else fails - I got backup plans!)
-
-If one doesn't work, it automatically tries the next one. It's like having multiple friends to ask for homework help!
-
-## What makes it special?
-
-- It explains money stuff in words that don't make your head explode
+- **Content Script**: Handles text selection and displays explanation interface
+- **Service Worker**: Manages AI provider communication and response processing
+- **Shared Services**: AI orchestration, term detection, and summarization utilities
+- **Settings Interface**: Configuration for API keys and provider preferences
 - Finds all the important finance words and explains them too
 - Makes short summaries so you don't have to read EVERYTHING
 - Works even when the internet is being weird
@@ -57,126 +38,129 @@ If one doesn't work, it automatically tries the next one. It's like having multi
 
 **Super easy setup** (I promise it's not scary!):
 
-1. First, download all the stuff my code needs:
-   ```
+## AI Provider Chain
+
+The extension uses an intelligent fallback system:
+
+1. **Chrome Built-in AI** (free, Chrome-native)
+2. **OpenAI** (ChatGPT API)
+3. **Claude** (Anthropic API)
+4. **Google Gemini** (Google AI API)
+5. **Local Analysis** (offline fallback)
+
+## Installation
+
+### Prerequisites
+- Node.js 16+ and npm
+- Google Chrome browser
+
+### Setup
+
+1. **Clone and install dependencies:**
+   ```bash
+   git clone https://github.com/GALIB-Dev/AI-Extension.git
+   cd AI-Extension
    npm install
    ```
-   (This is like downloading all the LEGO pieces before building something cool)
 
-2. Build the shared code first (trust me on this):
-   ```
+2. **Build the project:**
+   ```bash
    npm run build -w @eonmentor/shared
-   ```
-
-3. Start the development mode (this is where the magic happens):
-   ```
    npm run dev:ext
    ```
 
-4. Now add it to Chrome:
-   - Open Chrome and type `chrome://extensions` in the address bar
-   - Turn ON "Developer mode" (there's a toggle in the top right)
-   - Click "Load unpacked" and choose the `packages/extension/dist` folder
-   - BAM! Your extension is now installed!
+3. **Load in Chrome:**
+   - Open `chrome://extensions/`
+   - Enable "Developer mode"
+   - Click "Load unpacked"
+   - Select `packages/extension/dist` folder
 
-**To make the final version:**
-```
+### Production Build
+```bash
 npm run build
 ```
 
-## Setting up your AI friends
+## Configuration
 
-You need API keys to talk to the smart AIs. It's like having passwords to join their exclusive club:
+### API Keys (Optional)
 
-Go to the extension's options page and add:
-- `openai_api_key` - for ChatGPT 
-- `claude_api_key` - for Claude
-- `gemini_api_key` - for Google's AI
-- Set `enable_cloud_ai` to `true` if you want to use them
+Access the extension options to configure:
+- `openai_api_key` - OpenAI API access
+- `claude_api_key` - Anthropic Claude API access  
+- `gemini_api_key` - Google Gemini API access
+- `enable_cloud_ai` - Toggle cloud AI services
 
-Don't have API keys? No worries! It'll still work with my backup local analyzer (I'm always prepared!)
+The extension functions without API keys using Chrome's built-in AI and local analysis.
 
-## Cool features that make me proud
+## Core Features
 
-- **Never gives up**: If one AI is having a bad day, it tries another one
-- **Works offline**: My local analyzer works even without internet
-- **Super reliable**: I added lots of error handling so it doesn't break
-- **Smart messaging**: Uses fancy communication tricks between different parts
-- **Safe**: Doesn't crash your browser (learned from experience)
+- **Robust Fallback System**: Multiple AI providers ensure reliable service
+- **Offline Capability**: Local analysis works without internet connection
+- **Error Resilience**: Graceful handling of API failures and rate limits
+- **Cross-browser Messaging**: Reliable communication between extension components
+- **Financial Domain Focus**: Specialized for financial terminology and concepts
 
-## The important files (for curious people)
+## Key Files
 
-| File | What it does |
-|------|-------------|
-| `content-script.ts` | Watches what you select and shows the button |
-| `service-worker.ts` | The main brain that coordinates everything |
-| `ai-service.ts` | Talks to all the different AIs |
-| `summarizer.ts` | Makes short summaries of long text |
-| `finance-terms.en.json` | Database of money words and what they mean |
+| File | Purpose |
+|------|---------|
+| `content-script.ts` | Text selection handling and UI display |
+| `service-worker.ts` | AI provider coordination and response processing |
+| `ai-service.ts` | Multi-provider AI orchestration |
+| `summarizer.ts` | Text summarization utilities |
+| `finance-terms.en.json` | Financial terminology database |
 
-## My future plans (so exciting!)
+## Usage
 
-Here's what I want to add next:
-- [ ] Make it work in more languages (maybe Spanish?)
-- [ ] Better UI that looks super professional 
-- [ ] More AI services (there are SO many!)
-- [ ] Save your favorite explanations 
-- [ ] Make it work on more websites
-- [ ] Add tests (boring but important)
-- [ ] Make it faster and smarter
-- [ ] Add a cool dark mode theme
+1. Navigate to any webpage with financial content
+2. Highlight text containing financial terms or concepts  
+3. Click the "Explain" button that appears
+4. View AI-generated explanation in the tooltip
 
-## Things I'm still fixing
+## Development Roadmap
 
-- Some code is repeated in two places (I know, I know... I'll fix it!)
-- The text summary could be smarter
-- Need better error messages
-- Should add some rate limiting so I don't spam the AI services
-- The local analyzer is pretty basic (but it works!)
+- [ ] Multi-language support
+- [ ] Enhanced UI/UX improvements
+- [ ] Additional AI provider integrations
+- [ ] User explanation history
+- [ ] Website compatibility expansion
+- [ ] Comprehensive testing suite
+- [ ] Performance optimizations
+- [ ] Dark mode theme
 
-## How to use it (the fun part!)
+## Known Issues
 
-1. Go to any website with money talk (news, articles, whatever)
-2. Highlight any text that confuses you
-3. Look for the floating "Explain" button
-4. Click it and watch the magic happen!
-5. Read the simple explanation in the tooltip
-6. Feel smarter!
+- Code duplication in service worker implementations
+- Basic summarization heuristics could be improved
+- Error handling could be more granular
+- Rate limiting not implemented for API calls
+- Local analyzer uses simple keyword matching
 
-## Want to help make it better?
+## Contributing
 
-If you want to contribute (that'd be awesome!):
-- Make sure your code doesn't have errors: `eslint .`
-- Make sure your code doesn't have errors: `eslint .`
-- Check types: `tsc -b`  
-- Make sure it builds: `npm run build`
-- Then send me a pull request!
+Before submitting pull requests:
+- Run linting: `eslint .`
+- Check types: `tsc -b`
+- Verify build: `npm run build`
 
-I love getting help from other coders - it makes the project so much better! 
-
-## License stuff (the boring legal part)
+## License
 
 ```
 MIT License
 Copyright (c) 2025 GALIB-Dev
 ```
 
-Basically, you can use my code however you want, just give me credit!
+## Internationalization
 
-## A note about languages
+The extension is designed for easy localization. The financial terms database supports multiple languages through separate JSON files.
 
-Right now it's mostly in English, but I designed it so adding other languages will be super easy. The money terms database can totally be translated! Maybe I'll add Bengali next since I speak it too!
+## Support
 
-## Thanks for checking out my project!
-
-I worked really hard on this and I'm super proud of it. If you use it and it helps you understand money stuff better, that makes me SO happy!
-
-This was my first big coding project and I learned SO much making it. Like, seriously, I probably googled "how to make browser extension" like a million times!
-
-Hit me up if you have questions or ideas - I love talking about code and I'm always looking to learn new stuff!
+For detailed setup instructions, troubleshooting, and technical documentation, refer to:
+- `INSTALLATION.md` - Setup guide
+- `GEMINI_INTEGRATION.md` - Google AI integration details
+- `SERVICE_WORKER_FIX.md` - Technical troubleshooting
 
 ---
 
-*P.S. - Yes, I know some parts of the code could be cleaner. I'm still learning and improving! That's what makes coding fun - there's always something new to figure out!*
-
-*P.P.S. - My parents think I'm some kind of genius now that I made this. They don't really understand what it does, but they're proud anyway!*
+*An AI-powered financial literacy tool designed to make complex financial concepts accessible through intelligent explanation and multi-provider AI integration.*

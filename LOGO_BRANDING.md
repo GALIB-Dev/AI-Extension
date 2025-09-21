@@ -1,73 +1,52 @@
-# 🎨 EonMentor AI Logo & Branding
+# Logo & Branding
 
 ## Logo Design
 
-The EonMentor AI logo represents the fusion of artificial intelligence and financial literacy education:
+The EonMentor AI logo combines AI intelligence with financial literacy education through these key elements:
 
-### Design Elements
+### Visual Elements
 
-**🧠 Brain Symbol**
-- Represents AI intelligence and learning
-- Clean, modern design with subtle brain fold details
-- White/light blue gradient for a professional look
+- **Brain Symbol**: Represents AI intelligence and learning
+- **Dollar Sign Badge**: Green circular badge indicating financial focus
+- **Light Rays**: Golden rays symbolizing insight and understanding
 
-**💰 Dollar Sign Badge**  
-- Green circular badge with dollar symbol
-- Represents financial literacy and money management
-- Positioned as an overlay to show the financial focus
+### Color Palette
 
-**🌟 Light Rays**
-- Golden rays emanating from the center
-- Symbolizes insight, enlightenment, and understanding
-- Creates a dynamic, engaging visual effect
-
-**🎨 Color Palette**
-- **Primary**: Sky Blue (#87CEEB) - Trust, knowledge, professionalism
-- **Secondary**: Deep Blue (#5A9FD4) - Stability, intelligence
-- **Accent**: Green (#48BB78) - Growth, money, success  
-- **Gold**: (#FFD700) - Insight, premium quality
-- **Text**: Dark Blue (#1A365D) - Readability, authority
+- **Primary**: Sky Blue (#87CEEB) - Trust and professionalism
+- **Secondary**: Deep Blue (#5A9FD4) - Stability
+- **Accent**: Green (#48BB78) - Growth and finance
+- **Gold**: (#FFD700) - Premium quality
+- **Text**: Dark Blue (#1A365D) - Authority
 
 ### Icon Sizes
 
-The logo is provided in multiple sizes for different use cases:
-
-- **16x16px**: Browser favicon, small UI elements
-- **32x32px**: Extension toolbar icon  
+- **16x16px**: Favicon and small UI elements
+- **32x32px**: Extension toolbar icon
 - **48x48px**: Extension management page
-- **128x128px**: Chrome Web Store listing, high-DPI displays
+- **128x128px**: Chrome Web Store and high-DPI displays
 
 ### File Format
 
-All icons are provided as **SVG (Scalable Vector Graphics)** for:
-- **Crisp Rendering**: Perfect at any size
-- **Small File Size**: Minimal impact on extension bundle
-- **Professional Quality**: Vector graphics scale beautifully
-- **Browser Support**: Excellent SVG support in modern browsers
+All icons are SVG format for:
+- Crisp rendering at any size
+- Small file size
+- Professional quality scaling
+- Excellent browser support
 
-### Usage Guidelines
+### Usage
 
-**Extension Integration**
-- Icons automatically used in Chrome's extension UI
-- Appears in browser toolbar, extensions page, Chrome Web Store
-- Consistent branding across all touchpoints
+The logo appears in:
+- Browser toolbar
+- Chrome extensions page
+- Chrome Web Store listing
+- Extension popup and options
 
-**Color Consistency**
-- Matches the sky blue/white/gray theme used throughout the extension UI
-- Complements the minimal, clean design aesthetic
-- Professional appearance suitable for financial applications
-
-### Brand Message
+## Brand Values
 
 The logo communicates:
-- **Intelligence**: Brain symbol represents AI-powered analysis
-- **Financial Focus**: Dollar sign clearly identifies the domain
-- **Insight**: Light rays suggest illumination and understanding
-- **Trust**: Professional color palette builds user confidence
-- **Innovation**: Modern design reflects cutting-edge technology
+- Intelligence through AI-powered analysis
+- Clear financial domain focus
+- Professional trustworthiness
+- Modern innovation
 
----
-
-**Files Location**: `/packages/extension/icons/`
-**Manifest Integration**: Automatically copied to `dist/icons/` during build
-**Vector Format**: Scalable SVG files for optimal quality
+**Location**: `/packages/extension/icons/`
